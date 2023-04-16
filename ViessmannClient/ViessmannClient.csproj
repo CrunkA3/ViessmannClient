@@ -10,7 +10,7 @@
 		<Authors>Michael Rohrhirsch</Authors>
 		<Company>Michael Rohrhirsch</Company>
 		<Version>2.4.0</Version>
-		<TargetFrameworks>net7.0;net6.0;netstandard2.1</TargetFrameworks>
+		<TargetFrameworks>net7.0;net6.0</TargetFrameworks>
 		<NuspecFile>ViessmannClient.nuspec</NuspecFile>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<GenerateNuspecDependsOn>$(GenerateNuspecDependsOn);PopulateNuspec</GenerateNuspecDependsOn>
@@ -25,18 +25,13 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.1|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
 	  <WarningLevel>5</WarningLevel>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
 	  <WarningLevel>5</WarningLevel>
 	</PropertyGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
-		<PackageReference Include="System.Text.Json" Version="7.0.2" />
-		<PackageReference Include="System.Net.Http.Json" Version="7.0.1" />
-	</ItemGroup>
 
 	<ItemGroup>
 	  <None Include="..\icon.jpg">

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
+using System.Net.Http;
+using System;
 
 namespace ViessmannClient.Tests
 {
@@ -781,6 +783,38 @@ namespace ViessmannClient.Tests
             Assert.Equal(50.7, result.GetHeatingSolarSensorsTemperatureCollector());
             Assert.Equal(23456, result.GetHeatingSolarPowerCumulativeProduced());
             Assert.True(result.IsHeatingSolarRechargeSuppressionOn());
+        }
+
+
+
+        [Fact]
+        public async Task TestSetTemperature()
+        {
+            var mockHttp = new MockHttpMessageHandler();
+
+            mockHttp.When(HttpMethod.Post, $"{MockViessmannConnection.BaseUri}iot/v1/equipment/installations/{MockViessmannConnection.InstallationId}/gateways/{MockViessmannConnection.GatewayId}/devices/{MockViessmannConnection.DeviceId}/features/{MockViessmannConnection.FeatureName}")
+                    .WithPartialContent(@"""commandName"":""SetTemperature""")
+                    .Respond("application/json",
+                    @"{
+                        ""data"": {
+                            ""success"": true
+                        },
+                        ""cursor"": {
+                            ""next"": """"
+                        }
+                    }");
+
+            using var viessmannClient = new ViessmannPlatformClient(mockHttp.AddAuthMock().ToMockProvider());
+
+            var result = await viessmannClient
+                .ExecuteDeviceFeatureCommand(
+                MockViessmannConnection.InstallationId,
+                MockViessmannConnection.GatewayId,
+                MockViessmannConnection.DeviceId,
+                MockViessmannConnection.FeatureName,
+                new Model.Commands.CommandContent<double> { CommandName = MockViessmannConnection.CommandName, CommandBody = MockViessmannConnection.CommandBody });
+
+            Assert.True(result.Success);
         }
     }
 }

@@ -3,28 +3,50 @@
 	<PropertyGroup>
 		<AssemblyName>ViessmannClient</AssemblyName>
 		<RootNamespace>ViessmannClient</RootNamespace>
-		<PackageId>ViessmannClient</PackageId>
+		<PackageId>CrunkA3.ViessmannClient</PackageId>
 		<Description>This class library provides a way to call the Viessmann Developer Portal interfaces. It encapsulates all authentication, retry and parsing logic and provides a strongly typed method interface.</Description>
 		<PackageTags>viessmann;heating;smarthome;httpclient</PackageTags>
 		<PackageProjectUrl>https://github.com/CrunkA3/ViessmannClient</PackageProjectUrl>
 		<Authors>Michael Rohrhirsch</Authors>
 		<Company>Michael Rohrhirsch</Company>
-		<Version>2.3.0</Version>
-		<TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1;netstandard2.1</TargetFrameworks>
+		<Version>2.4.0</Version>
+		<TargetFrameworks>net7.0;net6.0;netstandard2.1</TargetFrameworks>
 		<NuspecFile>ViessmannClient.nuspec</NuspecFile>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<GenerateNuspecDependsOn>$(GenerateNuspecDependsOn);PopulateNuspec</GenerateNuspecDependsOn>
 		<LangVersion>11.0</LangVersion>
 		<Nullable>enable</Nullable>
 		<Title>ViessmannClient</Title>
+		<Copyright>Michael Rohrhirsch 2023</Copyright>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/CrunkA3/ViessmannClient.git</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageIcon>icon.jpg</PackageIcon>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.1|AnyCPU'">
+	  <WarningLevel>5</WarningLevel>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
+	  <WarningLevel>5</WarningLevel>
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
 		<PackageReference Include="System.Text.Json" Version="7.0.2" />
 		<PackageReference Include="System.Net.Http.Json" Version="7.0.1" />
 	</ItemGroup>
-	<ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
-		<PackageReference Include="System.Net.Http.Json" Version="7.0.1" />
+
+	<ItemGroup>
+	  <None Include="..\icon.jpg">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	  <None Include="..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	</ItemGroup>
 
 	<Target Name="PopulateNuspec">

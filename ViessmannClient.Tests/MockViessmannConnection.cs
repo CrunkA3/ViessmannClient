@@ -15,7 +15,7 @@ namespace ViessmannClient.Tests
 
         private const string _clientId = "1234561unittestidf91d15ff4caceee";
         private const string _authorizationCode = "123_unittest_authorization_code_456";
-        
+
         public static string BaseUri => "https://api.viessmann.com/";
         public static string AppToken => "5f4d6babc_dummy_unittest_token_83025a07162890c80a8b587bea589b8e2";
         public static string RefreshToken => "9b22aceff_dummy_unittest_token_173cba864cbae45f34efa22bc47544111";
@@ -24,6 +24,9 @@ namespace ViessmannClient.Tests
         public static long InstallationId => 12345;
         public static long GatewayId => 3344556677;
         public static long DeviceId => 0;
+        public static string FeatureName => "heating.dhw.temperature.main";
+        public static string CommandName => "SetTemperature";
+        public static double CommandBody => 52;
 
         public class ViessmannMockConnectionProvider<T> : ViessmannConnectionProvider<T>
         {

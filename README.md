@@ -10,7 +10,7 @@ This class library provides a way to call the Viessmann Developer Portal API. It
 ## NuGet
 
 ```powershell
-PM> Install-Package ViessmannClient
+PM> Install-Package CrunkA3.ViessmannClient
 ```
 
 ## Usage

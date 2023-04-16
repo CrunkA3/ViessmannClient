@@ -47,8 +47,6 @@ await client.TryCompleteLogin(code);
 After this step, the `auth` object will contain a valid access token and also a refresh token. The refresh token can be permanently persisted and loaded after each startup and will automatically be used for refreshing the access token if expired.
 
 > **Note:** in a productive use you will want to launch the login uri in an embedded browser view or redirect to this uri in case of a web application. After sucessful login either capture the resulting uri from the embedded browser or use a productive callback API on your server side.
-> 
-> **Note:** also, you may want to implement your own `IViessmannConnectionProvider<T>` and load your client id and redirect uri from a configuration file and store and load refresh tokens across program restarts. You can have a look at the respective classes in [`GraphIoT.Viessmann`](../GraphIoT.Viessmann/Config) as an example for `IViessmannAuth` and `IViessmannConnectionProvider<T>` implemenations with storing/loading of configuration, access tokens and refresh tokens.
 
 With being logged in sucessfully and having a valid refresh token in the `auth` object, you can now go ahead and use the library to actually traverse through installations, gateways and devices and finally query for data on the Viessmann API:
 

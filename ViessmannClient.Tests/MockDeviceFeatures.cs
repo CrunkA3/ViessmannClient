@@ -1,10 +1,10 @@
-using PhilipDaubmeier.ViessmannClient.Network;
+using ViessmannClient.Network;
 using RichardSzalay.MockHttp;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 
-namespace PhilipDaubmeier.ViessmannClient.Tests
+namespace ViessmannClient.Tests
 {
     public static class MockDeviceFeatures
     {

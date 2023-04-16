@@ -1,41 +1,45 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <AssemblyName>ViessmannClient</AssemblyName>
-    <RootNamespace>ViessmannClient</RootNamespace>
-    <PackageId>ViessmannClient</PackageId>
-    <Description>This class library provides a way to call the Viessmann Developer Portal interfaces. It encapsulates all authentication, retry and parsing logic and provides a strongly typed method interface.</Description>
-    <PackageTags>viessmann;heating;smarthome;httpclient</PackageTags>
-    <PackageProjectUrl>https://github.com/philipdaubmeier/GraphIoT/tree/master/src/ViessmannClient</PackageProjectUrl>
-    <Authors>Michael Rohrhirsch</Authors>
-    <Company>Michael Rohrhirsch</Company>
-    <Version>2.3.0</Version>
-    <TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1;netstandard2.1</TargetFrameworks>
-    <NuspecFile>ViessmannClient.nuspec</NuspecFile>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <GenerateNuspecDependsOn>$(GenerateNuspecDependsOn);PopulateNuspec</GenerateNuspecDependsOn>
-    <LangVersion>11.0</LangVersion>
-    <Nullable>enable</Nullable>
-    <Title>ViessmannClient</Title>
-  </PropertyGroup>
+	<PropertyGroup>
+		<AssemblyName>ViessmannClient</AssemblyName>
+		<RootNamespace>ViessmannClient</RootNamespace>
+		<PackageId>ViessmannClient</PackageId>
+		<Description>This class library provides a way to call the Viessmann Developer Portal interfaces. It encapsulates all authentication, retry and parsing logic and provides a strongly typed method interface.</Description>
+		<PackageTags>viessmann;heating;smarthome;httpclient</PackageTags>
+		<PackageProjectUrl>https://github.com/CrunkA3/ViessmannClient</PackageProjectUrl>
+		<Authors>Michael Rohrhirsch</Authors>
+		<Company>Michael Rohrhirsch</Company>
+		<Version>2.3.0</Version>
+		<TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1;netstandard2.1</TargetFrameworks>
+		<NuspecFile>ViessmannClient.nuspec</NuspecFile>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<GenerateNuspecDependsOn>$(GenerateNuspecDependsOn);PopulateNuspec</GenerateNuspecDependsOn>
+		<LangVersion>11.0</LangVersion>
+		<Nullable>enable</Nullable>
+		<Title>ViessmannClient</Title>
+	</PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
-    <PackageReference Include="System.Text.Json" Version="5.0.2" />
-  </ItemGroup>
-  
-  <Target Name="PopulateNuspec">
-    <PropertyGroup>
-      <NuspecProperties>
-        id=$(PackageId);
-        authors=$(Authors);
-        configuration=$(Configuration);
-        description=$(PackageDescription);
-        projectUrl=$(PackageProjectUrl);
-        tags=$(PackageTags.Replace(';', ' '));
-        targetPath=$(TargetPath);
-        version=$(PackageVersion);
-      </NuspecProperties>
-    </PropertyGroup>
-  </Target>
+	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
+		<PackageReference Include="System.Text.Json" Version="7.0.2" />
+		<PackageReference Include="System.Net.Http.Json" Version="7.0.1" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
+		<PackageReference Include="System.Net.Http.Json" Version="7.0.1" />
+	</ItemGroup>
+
+	<Target Name="PopulateNuspec">
+		<PropertyGroup>
+			<NuspecProperties>
+				id=$(PackageId);
+				authors=$(Authors);
+				configuration=$(Configuration);
+				description=$(PackageDescription);
+				projectUrl=$(PackageProjectUrl);
+				tags=$(PackageTags.Replace(';', ' '));
+				targetPath=$(TargetPath);
+				version=$(PackageVersion);
+			</NuspecProperties>
+		</PropertyGroup>
+	</Target>
 
 </Project>

@@ -6,7 +6,6 @@
     <title>Client library for communicating to the Viessmann Developer Portal API</title>
     <authors>$authors$</authors>
     <owners>$authors$</owners>
-    <license>MIT</license>
     <projectUrl>$projectUrl$</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>

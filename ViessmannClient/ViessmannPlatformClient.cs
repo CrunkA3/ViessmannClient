@@ -6,6 +6,8 @@ using ViessmannClient.Network;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ViessmannClient.Model.Commands;
+using ViessmannClient.Model;
 
 namespace ViessmannClient
 {
@@ -44,6 +46,12 @@ namespace ViessmannClient
         {
             var uri = $"{_baseUri}iot/v1/equipment/installations/{installationId}/gateways/{gatewayId}/devices/{deviceId}/features";
             return await CallViessmannApi<FeatureResponse<DeviceFeatureList>, DeviceFeatureList>(new Uri(uri));
+        }
+
+        public async Task<SuccessState> ExecuteDeviceFeatureCommand<T>(long installationId, long gatewayId, long deviceId, string featureName, CommandContent<T> commandBody) where T : class
+        {
+            var uri = $"{_baseUri}iot/v1/equipment/installations/{installationId}/gateways/{gatewayId}/devices/{deviceId}/features/{featureName}";
+            return await CallViessmannApi<CommandResponse<SuccessState>, SuccessState, CommandContent<T>>(new Uri(uri), commandBody);
         }
     }
 }

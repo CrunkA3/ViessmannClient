@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <AssemblyName>PhilipDaubmeier.ViessmannClient.Tests</AssemblyName>
-    <RootNamespace>PhilipDaubmeier.ViessmannClient.Tests</RootNamespace>
+    <AssemblyName>ViessmannClient.Tests</AssemblyName>
+    <RootNamespace>ViessmannClient.Tests</RootNamespace>
     <Authors>PhilipDaubmeier</Authors>
     <Company>PhilipDaubmeier</Company>
     <Version>1.5.0</Version>

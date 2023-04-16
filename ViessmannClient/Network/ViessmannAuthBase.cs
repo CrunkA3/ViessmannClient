@@ -10,6 +10,7 @@ using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Net.Http.Json;
 
 namespace ViessmannClient.Network
 {
@@ -101,6 +102,31 @@ namespace ViessmannClient.Network
         }
 
         /// <summary>
+        /// Calls the given endpoint at the Viessmann api and ensures the request is authenticated.
+        /// If no valid access token is present yet, this method will trigger a new authentication.
+        /// </summary>
+        protected async Task<HttpResponseMessage> RequestViessmannApi<T>(Uri uri, T content)
+        {
+            await Authenticate();
+
+            if (_connectionProvider.AuthData.AccessToken is null)
+                throw new IOException("Can not request data without access token.");
+
+            var request = new HttpRequestMessage()
+            {
+                RequestUri = uri,
+                Method = HttpMethod.Post
+            };
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _connectionProvider.AuthData.AccessToken);
+            request.Headers.Add("Accept", "application/json");
+
+            request.Content = JsonContent.Create(content);
+
+            return await _client.SendAsync(request);
+        }
+
+
+        /// <summary>
         /// Calls the given endpoint at the Viessmann api and ensures the request is authenticated
         /// and parses the result afterwards. If no valid access token is present yet, this method
         /// will trigger a new authentication.
@@ -109,6 +135,23 @@ namespace ViessmannClient.Network
             where TWiremessage : IWiremessage<TData> where TData : class
         {
             var responseString = await (await RequestViessmannApi(uri)).Content.ReadAsStringAsync();
+
+            var result = JsonSerializer.Deserialize<TWiremessage>(responseString, _jsonSerializerOptions);
+            if (result?.Data == null)
+                throw ExtractErrorMessage(responseString);
+
+            return result.Data;
+        }
+
+        /// <summary>
+        /// Calls the given endpoint at the Viessmann api and ensures the request is authenticated
+        /// and parses the result afterwards. If no valid access token is present yet, this method
+        /// will trigger a new authentication.
+        /// </summary>
+        protected async Task<TData> CallViessmannApi<TWiremessage, TData, TContent>(Uri uri, TContent content)
+            where TWiremessage : IWiremessage<TData> where TData : class
+        {
+            var responseString = await (await RequestViessmannApi(uri, content)).Content.ReadAsStringAsync();
 
             var result = JsonSerializer.Deserialize<TWiremessage>(responseString, _jsonSerializerOptions);
             if (result?.Data == null)

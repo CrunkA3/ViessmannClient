@@ -1,5 +1,6 @@
-﻿[![NuGet](http://img.shields.io/nuget/v/ViessmannClient.svg?style=flat-square)](https://www.nuget.org/packages/ViessmannClient/)
-[![Build status](https://ci.appveyor.com/api/projects/status/mj67oe2c9wfkv2ld/branch/master?svg=true)](https://ci.appveyor.com/project/philipdaubmeier/graphiot/branch/master)
+﻿[![NuGet](https://img.shields.io/nuget/v/CrunkA3.ViessmannClient)](https://www.nuget.org/packages/CrunkA3.ViessmannClient)
+[![.NET](https://github.com/CrunkA3/ViessmannClient/actions/workflows/dotnet.yml/badge.svg)](https://github.com/CrunkA3/ViessmannClient/actions/workflows/dotnet.yml)
+[![.NET](https://github.com/CrunkA3/ViessmannClient/actions/workflows/dotnet.yml/badge.svg)](https://github.com/CrunkA3/ViessmannClient/actions/workflows/dotnet.yml)
 
 # ViessmannClient
 

@@ -9,11 +9,9 @@
 		<PackageProjectUrl>https://github.com/CrunkA3/ViessmannClient</PackageProjectUrl>
 		<Authors>Michael Rohrhirsch</Authors>
 		<Company>Michael Rohrhirsch</Company>
-		<Version>2.4.0</Version>
+		<Version>2.4.1</Version>
 		<TargetFrameworks>net7.0;net6.0</TargetFrameworks>
-		<NuspecFile>ViessmannClient.nuspec</NuspecFile>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<GenerateNuspecDependsOn>$(GenerateNuspecDependsOn);PopulateNuspec</GenerateNuspecDependsOn>
 		<LangVersion>11.0</LangVersion>
 		<Nullable>enable</Nullable>
 		<Title>ViessmannClient</Title>
@@ -23,14 +21,6 @@
 		<RepositoryType>git</RepositoryType>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
-	  <WarningLevel>5</WarningLevel>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
-	  <WarningLevel>5</WarningLevel>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -43,20 +33,5 @@
 	    <PackagePath>\</PackagePath>
 	  </None>
 	</ItemGroup>
-
-	<Target Name="PopulateNuspec">
-		<PropertyGroup>
-			<NuspecProperties>
-				id=$(PackageId);
-				authors=$(Authors);
-				configuration=$(Configuration);
-				description=$(PackageDescription);
-				projectUrl=$(PackageProjectUrl);
-				tags=$(PackageTags.Replace(';', ' '));
-				targetPath=$(TargetPath);
-				version=$(PackageVersion);
-			</NuspecProperties>
-		</PropertyGroup>
-	</Target>
 
 </Project>

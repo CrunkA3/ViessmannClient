@@ -1,0 +1,17 @@
+﻿{
+	"data": [
+		{
+			"gatewaySerial": "{GatewayId}",
+			"id": "{DeviceId}",
+			"boilerSerial": "777555888999",
+			"boilerSerialEditor": "DeviceCommunication",
+			"bmuSerial": "000999888777",
+			"bmuSerialEditor": "DeviceCommunication",
+			"createdAt": "2018-06-08T00:08:10.199Z",
+			"editedAt": "2019-11-08T20:53:43.470Z",
+			"modelId": "VPlusHO1_40",
+			"status": "Online",
+			"deviceType": "heating"
+		}
+	]
+}

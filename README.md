@@ -1,6 +1,6 @@
 ﻿[![NuGet](https://img.shields.io/nuget/v/CrunkA3.ViessmannClient)](https://www.nuget.org/packages/CrunkA3.ViessmannClient)
 [![.NET](https://github.com/CrunkA3/ViessmannClient/actions/workflows/dotnet.yml/badge.svg)](https://github.com/CrunkA3/ViessmannClient/actions/workflows/dotnet.yml)
-[![.NET](https://github.com/CrunkA3/ViessmannClient/actions/workflows/dotnet.yml/badge.svg)](https://github.com/CrunkA3/ViessmannClient/actions/workflows/dotnet.yml)
+[![CodeQL](https://github.com/CrunkA3/ViessmannClient/actions/workflows/codeql.yml/badge.svg)](https://github.com/CrunkA3/ViessmannClient/actions/workflows/codeql.yml)
 
 # ViessmannClient
 

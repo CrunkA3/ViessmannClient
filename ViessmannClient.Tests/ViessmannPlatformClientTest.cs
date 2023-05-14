@@ -38,7 +38,7 @@ namespace ViessmannClient.Tests
         {
             var mockHttp = new MockHttpMessageHandler();
 
-            string responseString = await ViessmannPlatformClientTest.GetInstallationsResponseAsync();
+            string responseString = await GetInstallationsResponseAsync();
 
             mockHttp.When($"{MockViessmannConnection.BaseUri}iot/v1/equipment/installations")
                 .Respond("application/json", responseString);
@@ -272,7 +272,8 @@ namespace ViessmannClient.Tests
             Assert.Equal(5, result.GetHeatingCircuitsHeatingCurveShift(FeatureName.Circuit.Circuit0));
             Assert.Equal(0.9m, result.GetHeatingCircuitsHeatingCurveSlope(FeatureName.Circuit.Circuit0));
             Assert.True(result.IsHeatingCircuitsHeatingScheduleActive(FeatureName.Circuit.Circuit0));
-            Assert.NotEmpty(result.GetHeatingCircuitsHeatingSchedule(FeatureName.Circuit.Circuit0).Mon);
+            Assert.NotNull(result.GetHeatingCircuitsHeatingSchedule(FeatureName.Circuit.Circuit0).Mon);
+            Assert.NotEmpty(result.GetHeatingCircuitsHeatingSchedule(FeatureName.Circuit.Circuit0).Mon!);
             Assert.Equal("dhwAndHeating", result.GetHeatingCircuitsOperatingModesActive(FeatureName.Circuit.Circuit0));
             Assert.False(result.IsHeatingCircuitsOperatingModesDhwActive(FeatureName.Circuit.Circuit0));
             Assert.True(result.IsHeatingCircuitsOperatingModesDhwAndHeatingActive(FeatureName.Circuit.Circuit0));
@@ -309,7 +310,8 @@ namespace ViessmannClient.Tests
             Assert.Equal(0, result.GetHeatingCircuitsHeatingCurveShift(FeatureName.Circuit.Circuit1));
             Assert.Equal(0.5m, result.GetHeatingCircuitsHeatingCurveSlope(FeatureName.Circuit.Circuit1));
             Assert.True(result.IsHeatingCircuitsHeatingScheduleActive(FeatureName.Circuit.Circuit1));
-            Assert.NotEmpty(result.GetHeatingCircuitsHeatingSchedule(FeatureName.Circuit.Circuit1).Mon);
+            Assert.NotNull(result.GetHeatingCircuitsHeatingSchedule(FeatureName.Circuit.Circuit1).Mon);
+            Assert.NotEmpty(result.GetHeatingCircuitsHeatingSchedule(FeatureName.Circuit.Circuit1).Mon!);
             Assert.Equal("dhwAndHeating", result.GetHeatingCircuitsOperatingModesActive(FeatureName.Circuit.Circuit1));
             Assert.False(result.IsHeatingCircuitsOperatingModesDhwActive(FeatureName.Circuit.Circuit1));
             Assert.True(result.IsHeatingCircuitsOperatingModesDhwAndHeatingActive(FeatureName.Circuit.Circuit1));
@@ -388,10 +390,12 @@ namespace ViessmannClient.Tests
             Assert.False(result.IsHeatingDhwChargingActive());
             Assert.False(result.IsHeatingDhwPumpsCirculationOn());
             Assert.True(result.IsHeatingDhwPumpsCirculationScheduleActive());
-            Assert.NotEmpty(result.GetHeatingDhwPumpsCirculationSchedule().Mon);
+            Assert.NotNull(result.GetHeatingDhwPumpsCirculationSchedule().Mon);
+            Assert.NotEmpty(result.GetHeatingDhwPumpsCirculationSchedule().Mon!);
             Assert.False(result.IsHeatingDhwPumpsPrimaryOn());
             Assert.True(result.IsHeatingDhwScheduleActive());
-            Assert.NotEmpty(result.GetHeatingDhwSchedule().Mon);
+            Assert.NotNull(result.GetHeatingDhwSchedule().Mon);
+            Assert.NotEmpty(result.GetHeatingDhwSchedule().Mon!);
             Assert.True(result.IsHeatingDhwSensorsTemperatureHotWaterStorageConnected());
             Assert.Equal(55.4, result.GetHeatingDhwSensorsTemperatureHotWaterStorage());
             Assert.False(result.IsHeatingDhwSensorsTemperatureOutletConnected());

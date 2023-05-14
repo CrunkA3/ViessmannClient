@@ -25,11 +25,11 @@ namespace ViessmannClient.Tests
         }
 
 
-        private static Task<string> GetInstallationsResponseAsync() => GetResponseAsync(@"Responses\Installations.json");
-        private static Task<string> GetGatewaysResponseAsync() => GetResponseAsync(@"Responses\Gateways.json");
-        private static Task<string> GetGatewayFeaturesResponseAsync() => GetResponseAsync(@"Responses\GatewayFeatures.json");
-        private static Task<string> GetDevicesResponseAsync() => GetResponseAsync(@"Responses\Devices.json");
-        private static Task<string> GetDeviceFeaturesResponseAsync() => GetResponseAsync(@"Responses\DeviceFeatures.json");
+        private static Task<string> GetInstallationsResponseAsync() => GetResponseAsync("Responses/Installations.json");
+        private static Task<string> GetGatewaysResponseAsync() => GetResponseAsync("Responses/Gateways.json");
+        private static Task<string> GetGatewayFeaturesResponseAsync() => GetResponseAsync("Responses/GatewayFeatures.json");
+        private static Task<string> GetDevicesResponseAsync() => GetResponseAsync("Responses/Devices.json");
+        private static Task<string> GetDeviceFeaturesResponseAsync() => GetResponseAsync("Responses/DeviceFeatures.json");
 
 
 

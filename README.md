@@ -1,4 +1,4 @@
-﻿[![NuGet](https://img.shields.io/nuget/v/CrunkA3.ViessmannClient)](https://www.nuget.org/packages/CrunkA3.ViessmannClient)
+[![NuGet](https://img.shields.io/nuget/v/CrunkA3.ViessmannClient)](https://www.nuget.org/packages/CrunkA3.ViessmannClient)
 [![.NET](https://github.com/CrunkA3/ViessmannClient/actions/workflows/dotnet.yml/badge.svg)](https://github.com/CrunkA3/ViessmannClient/actions/workflows/dotnet.yml)
 [![CodeQL](https://github.com/CrunkA3/ViessmannClient/actions/workflows/codeql.yml/badge.svg)](https://github.com/CrunkA3/ViessmannClient/actions/workflows/codeql.yml)
 
@@ -6,7 +6,7 @@
 
 Based on [PhilipDaubmeier.ViessmannClient](https://github.com/philipdaubmeier/GraphIoT/blob/master/src/ViessmannClient/ViessmannClient.nuspec)
 
-This class library provides a way to call the Viessmann Developer Portal API. It encapsulates all authentication, retry and parsing logic and provides a strongly typed method interface for reading all details of an installation as well as all setting and sensor values of devices.
+This class library provides a way to call the Viessmann Developer Portal API. It encapsulates all authentication, retry and parsing logic and provides a strongly typed method interface for reading all details, settings and sensor values of an installation as well as execute commands.
 
 ## NuGet
 
@@ -62,6 +62,11 @@ var features = await client.GetDeviceFeatures(installationId, gatewayId, deviceI
 var outsideTemp = features.GetHeatingSensorsTemperatureOutside();
 var boilerTemp = features.GetHeatingBoilerTemperature();
 Console.WriteLine($"Outside temp: {outsideTemp} °C, boiler temp: {boilerTemp} °C");
+
+// Execute command
+var commandContent = new Commands.CommandContent<double> { CommandName = "SetTemperature", CommandBody = 52 });
+bool result = await viessmannClient
+    .ExecuteDeviceFeatureCommand(installationId, gatewayId, deviceId, featureName, commandContent);
 ```
 
 For more usage examples you can also have a look at the [unit tests](../../test/ViessmannClient.Tests).

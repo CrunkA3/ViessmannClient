@@ -30,6 +30,7 @@ namespace ViessmannClient.Tests
         private static Task<string> GetGatewayFeaturesResponseAsync() => GetResponseAsync("Responses/GatewayFeatures.json");
         private static Task<string> GetDevicesResponseAsync() => GetResponseAsync("Responses/Devices.json");
         private static Task<string> GetDeviceFeaturesResponseAsync() => GetResponseAsync("Responses/DeviceFeatures.json");
+        private static Task<string> GetExecuteCommandResponseAsync() => GetResponseAsync("Responses/ExecuteCommand.json");
 
 
 
@@ -432,17 +433,11 @@ namespace ViessmannClient.Tests
         {
             var mockHttp = new MockHttpMessageHandler();
 
+            string responseString = await GetExecuteCommandResponseAsync();
+
             mockHttp.When(HttpMethod.Post, $"{MockViessmannConnection.BaseUri}iot/v1/equipment/installations/{MockViessmannConnection.InstallationId}/gateways/{MockViessmannConnection.GatewayId}/devices/{MockViessmannConnection.DeviceId}/features/{MockViessmannConnection.FeatureName}")
                     .WithPartialContent(@"""commandName"":""SetTemperature""")
-                    .Respond("application/json",
-                    @"{
-                        ""data"": {
-                            ""success"": true
-                        },
-                        ""cursor"": {
-                            ""next"": """"
-                        }
-                    }");
+                    .Respond("application/json", responseString);
 
             using var viessmannClient = new ViessmannPlatformClient(mockHttp.AddAuthMock().ToMockProvider());
 
@@ -456,5 +451,7 @@ namespace ViessmannClient.Tests
 
             Assert.True(result.Success);
         }
+
+
     }
 }

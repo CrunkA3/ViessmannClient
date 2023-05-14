@@ -34,6 +34,9 @@
 	  <None Update="Responses\Devices.json">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
+	  <None Update="Responses\ExecuteCommand.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	  <None Update="Responses\GatewayFeatures.json">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>

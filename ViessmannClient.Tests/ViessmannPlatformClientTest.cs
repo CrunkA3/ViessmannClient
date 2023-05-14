@@ -6,18 +6,39 @@ using System.Threading.Tasks;
 using Xunit;
 using System.Net.Http;
 using System;
+using System.IO;
+using System.Text.Json;
 
 namespace ViessmannClient.Tests
 {
     public class ViessmannPlatformClientTest
     {
+        private static async Task<string> GetResponseAsync(string path)
+        {
+            using StreamReader streamReader = new(path);
+            var content = await streamReader.ReadToEndAsync();
+            return content
+                .Replace("{InstallationId}", JsonSerializer.Serialize(MockViessmannConnection.InstallationId))
+                .Replace("{GatewayId}", JsonSerializer.Serialize(MockViessmannConnection.GatewayId))
+                .Replace("{DeviceId}", JsonSerializer.Serialize(MockViessmannConnection.DeviceId))
+                .Replace("{BaseUri}", MockViessmannConnection.BaseUri);
+        }
+
+
+        private static Task<string> GetInstallationsResponseAsync() => GetResponseAsync(@"Responses\Installations.json");
+        private static Task<string> GetGatewaysResponseAsync() => GetResponseAsync(@"Responses\Gateways.json");
+        private static Task<string> GetGatewayFeaturesResponseAsync() => GetResponseAsync(@"Responses\GatewayFeatures.json");
+        private static Task<string> GetDevicesResponseAsync() => GetResponseAsync(@"Responses\Devices.json");
+        private static Task<string> GetDeviceFeaturesResponseAsync() => GetResponseAsync(@"Responses\DeviceFeatures.json");
+
+
+
         [Fact]
         public async Task TestGetInstallations()
         {
             var mockHttp = new MockHttpMessageHandler();
 
-            string responseString = Properties.Resources.Installations
-                .Replace("{InstallationId}", System.Text.Json.JsonSerializer.Serialize(MockViessmannConnection.InstallationId));
+            string responseString = await ViessmannPlatformClientTest.GetInstallationsResponseAsync();
 
             mockHttp.When($"{MockViessmannConnection.BaseUri}iot/v1/equipment/installations")
                 .Respond("application/json", responseString);
@@ -48,9 +69,7 @@ namespace ViessmannClient.Tests
         {
             var mockHttp = new MockHttpMessageHandler();
 
-            string responseString = Properties.Resources.Gateways
-                .Replace("{InstallationId}", System.Text.Json.JsonSerializer.Serialize(MockViessmannConnection.InstallationId))
-                .Replace("{GatewayId}", System.Text.Json.JsonSerializer.Serialize(MockViessmannConnection.GatewayId));
+            string responseString = await GetGatewaysResponseAsync();
 
             mockHttp.When($"{MockViessmannConnection.BaseUri}iot/v1/equipment/installations/{MockViessmannConnection.InstallationId}/gateways")
                     .Respond("application/json", responseString);
@@ -74,9 +93,7 @@ namespace ViessmannClient.Tests
         {
             var mockHttp = new MockHttpMessageHandler();
 
-            string responseString = Properties.Resources.Devices
-                .Replace("{GatewayId}", System.Text.Json.JsonSerializer.Serialize(MockViessmannConnection.GatewayId))
-                .Replace("{DeviceId}", System.Text.Json.JsonSerializer.Serialize(MockViessmannConnection.DeviceId));
+            string responseString = await GetDevicesResponseAsync();
 
             mockHttp.When($"{MockViessmannConnection.BaseUri}iot/v1/equipment/installations/{MockViessmannConnection.InstallationId}/gateways/{MockViessmannConnection.GatewayId}/devices")
                     .Respond("application/json", responseString);
@@ -102,9 +119,7 @@ namespace ViessmannClient.Tests
         {
             var mockHttp = new MockHttpMessageHandler();
 
-            string responseString = Properties.Resources.GatewayFeatures
-                .Replace("{GatewayId}", System.Text.Json.JsonSerializer.Serialize(MockViessmannConnection.GatewayId))
-                .Replace("{DeviceId}", System.Text.Json.JsonSerializer.Serialize(MockViessmannConnection.DeviceId));
+            string responseString = await GetGatewayFeaturesResponseAsync();
 
             mockHttp.When($"{MockViessmannConnection.BaseUri}iot/v1/equipment/installations/{MockViessmannConnection.InstallationId}/gateways/{MockViessmannConnection.GatewayId}/features")
                     .Respond("application/json", responseString);
@@ -153,11 +168,7 @@ namespace ViessmannClient.Tests
         {
             var mockHttp = new MockHttpMessageHandler();
 
-            string responseString = Properties.Resources.DeviceFeatures
-                .Replace("{BaseUri}", MockViessmannConnection.BaseUri)
-                .Replace("{InstallationId}", System.Text.Json.JsonSerializer.Serialize(MockViessmannConnection.InstallationId))
-                .Replace("{GatewayId}", System.Text.Json.JsonSerializer.Serialize(MockViessmannConnection.GatewayId))
-                .Replace("{DeviceId}", System.Text.Json.JsonSerializer.Serialize(MockViessmannConnection.DeviceId));
+            string responseString = await GetDeviceFeaturesResponseAsync();
 
             mockHttp.When($"{MockViessmannConnection.BaseUri}iot/v1/equipment/installations/{MockViessmannConnection.InstallationId}/gateways/{MockViessmannConnection.GatewayId}/devices/{MockViessmannConnection.DeviceId}/features")
                     .Respond("application/json", responseString);
